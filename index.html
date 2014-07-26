@@ -461,12 +461,17 @@ h2 {
 				}
 				throw new Error("Unknown type 0x" + type.toString(16));
 			}
-			var value = parse();
-			if (offset !== dataView.byteLength) {
-				var overflow = dataView.byteLength - offset;
-				errlog(overflow + " trailing bytes");
-				var remainBytes = dataView.buffer.slice(offset, overflow);
-				errlog("trailing chars: " + raw(overflow));
+			var value = [];
+			overflow = "";
+			while (offset < dataView.byteLength) {
+			    value.push(parse());
+			}
+			
+//			if (offset !== dataView.byteLength) {
+//				var overflow = dataView.byteLength - offset;
+//				errlog(overflow + " trailing bytes");
+//				var remainBytes = dataView.buffer.slice(offset, overflow);
+//				errlog("trailing chars: " + raw(overflow));
 
 				// if (remainBytes.byteLength) {
 				//     setTimeout(function() {
